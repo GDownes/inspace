@@ -101,7 +101,7 @@ Install the dependencies using the following command:
 npm install -S axios chalk clear figlet
 ```
 
-## Supplemental Example Functionality
+## Example CLI Functionality
 
 Add imports for the installed packages to the Typescript entrypoint `src/index.ts` file.
 ```typescript
