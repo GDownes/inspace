@@ -1,6 +1,6 @@
 # Minimal Typescript based Command Line Interface (CLI) with Node.js
 
-Our goal is to create a Node.js based Command Line Interface (CLI) using Typescript. This setup includes top-Level await support and ES module importing. 
+Our goal is to create a Node.js based Command Line Interface (CLI) using Typescript. This setup includes top-Level await support and ES module imports. 
 
 ## What We’re Going to Build
 
@@ -73,6 +73,79 @@ The file (CLI) can now be executed directly as if it was a binary.
 ./src/index.ts
 ```
 
+## Making the Command Available Globally
+
+The npm package can now be locally installed globally using the following command:
+```shell
+npm install -g
+```
+
+After installation the npm package can now be executed using the package name:
+```shell
+inspace
+```
+
+## Package Dependencies
+
+The foundation of the CLI has now been setup. The CLI's functionality is ready to be fleshed out and is supplemental to the CLI's foundation.
+The following dependencies will be added only to showcase example CLI functionality.
+
+- axios - promise based HTTP client
+- chalk — colorizes the output
+- clear — clears the terminal screen
+- figlet — creates ASCII art from text
+
+
+Install the dependencies using the following command:
+```shell
+npm install -S axios chalk clear figlet
+```
+
+## Supplemental Example Functionality
+
+Add imports for the installed packages to the Typescript entrypoint `src/index.ts` file.
+```typescript
+import axios from 'axios';
+import chalk from 'chalk';
+import clear from 'clear'
+import figlet from 'figlet'
+```
+
+
+We are using the Open Notify API as a data source. Create types to handle the API response.
+```typescript
+type People = {
+  name: string;
+  craft: string;
+}
+
+type Inhabitants = {
+  number: number;
+  people: People[]
+}
+```
+
+Add a function to encapsulate interacting with the Open Notify API using Axios.
+```typescript
+async function getInhabitantsOfSpace() {
+  const response = await axios.get<Inhabitants>("http://api.open-notify.org/astros.json");
+  return response.data;
+}
+```
+
+Clear the terminal screen using `clear`, then print a ASCII header using `figlet`.
+```typescript
+clear();
+console.log(chalk.yellowBright(figlet.textSync('InSpace', { horizontalLayout: 'full' })));
+```
+
+Get the inhabitants of space using the `getInhabitantsOfSpace` function and print the results using `chalk`.
+```typescript
+const inhabitants = await getInhabitantsOfSpace();
+console.log(chalk.blue(`There is currently ${inhabitants.number} people in space`));
+inhabitants.people.forEach(person => console.log(`${person.name} - ${chalk.yellow(person.craft)}`));
+```
+
 ## Publishing the CLI to NPM
 
 The npm package can now be published if logged into npm using the following command:
@@ -80,7 +153,7 @@ The npm package can now be published if logged into npm using the following comm
 npm publish
 ```
 
-Once the package is published it can be installed globally using the following command:
+The npm package can now be installed globally using the following command:
 ```shell
 npm install -g inspace
 ```
@@ -89,6 +162,9 @@ After installation the npm package can now be executed using the package name:
 ```shell
 inspace
 ```
+
+
+
 
 
 
