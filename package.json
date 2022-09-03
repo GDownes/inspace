@@ -1,0 +1,15 @@
+{
+  "name": "inspace",
+  "version": "1.0.24",
+  "description": "Minimal typescript node.js based command line interface (CLI) showing who is in space",
+  "type": "module",
+  "bin": {
+    "inspace": "src/index.ts"
+  },
+  "dependencies": {
+    "chalk": "^5.0.1",
+    "axios": "^0.27.2",
+    "clear": "^0.1.0",
+    "figlet": "^1.5.2"
+  }
+}
