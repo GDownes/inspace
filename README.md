@@ -50,6 +50,8 @@ Create an `tsconfig.json` file in the same folder and include the following to e
 }
 ```
 
+## Creating the Entrypoint
+
 Create the Typescript entrypoint `src/index.ts` file, to match the `package.json` bin property.
 Include the following shebang as the first line of the file:
 ```typescript
